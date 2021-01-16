@@ -18,12 +18,21 @@ using UnityEngine;
     u[t]:時刻tにおける入力
 
     パラメータ記録
-    -2021/jan/16　収束しない&挙動が不安定だが頑張っている様子
+    -2021/jan/16　収束しない&挙動が不安定だが頑張っている様子(評価対象：Object位置、速度、自然長からの距離)
     GMRES_RepeatConstant 2
     PredictionTime 10
     StableConstant 100
     FinalEvaluationScope 0.5
     NaturalPositionConstant -1.8 //-2.9~-1.8(-2.0を除く)で同じような挙動を確認
+    それ以外 1
+    -2021/jan/16　なんかいい感じ(評価対象：Object位置、速度、自然長からの距離)
+    GMRES_RepeatConstant 2
+    PredictionTime 10
+    StableConstant 100
+    FinalEvaluationScope 0.5
+    NaturalPositionConstant_Stage -1.8 //-2.9~-1.8(-2.0を除く)で同じような挙動を確認
+    VelocityConstant 0.2
+    VelocityConstant_Stage 0.2
     それ以外 1
 */
 
@@ -218,7 +227,10 @@ public class MPControl : MonoBehaviour{
             for(int j=0;j<GMRES_RepeatTime;j++)DifferentialInputPosition_y[i]+=OrthogonalBasis[j,i]*y[j];
             InputPosition_y[i]+=DifferentialInputPosition_y[i]*dt;///////////////////////////////
         }
+
+        //move predictiove objet's position indicater
+        for(int i=1;i<PredictionTime;i++)PredictivePositionIndicaterTransform[i].position=new Vector3(0,ObjectPosition_y[i],-0.1f);
         
-        Debug.Log(InputPosition_y[0]);
+        Debug.Log(ObjectPosition_y[0]);
     }
 }
