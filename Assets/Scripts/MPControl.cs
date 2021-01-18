@@ -5,10 +5,14 @@ using UnityEngine;
 //using DifiningObjects_MPControl;
 
 /*
-    このプログラムに対して評価関数からばねが自然長から離れる距離に比例するコストを抜き入力の時間微分のコストを追加したものである。
+    こんにちは。たこすです。MPCについて学んでみたので、C/GMRES法を用いたMPCによるばね振子制御をUnityでシミュレーションしてみました。
+    このファイルのコードが計算をしています。
 
+    参考文献
+    非線形最適制御入門 /大塚敏行 著
+    
     前置き
-    コメントアウト機能を利用して各式の説明を行っているが、その時に利用する文字等について先に示しておく
+    コメントアウト機能を利用して各式の(申し訳程度の)説明を行っているが、その時に利用する文字等について先に示しておく
     t:そのループ時の時刻
     τ:予測範囲での時刻、時刻tのときτ=0である
     d~:微小な~ ex:dx/dtはxの時間微分表す
@@ -29,10 +33,11 @@ using UnityEngine;
     GMRES_RepeatConstant 2
     PredictionTime 10
     StableConstant 100
-    FinalEvaluationScope 0.5
-    NaturalPositionConstant_Stage -1.8 //-2.9~-1.8(-2.0を除く)で同じような挙動を確認
-    VelocityConstant 0.2
-    VelocityConstant_Stage 0.2
+    FinalEvaluationScope 0.7
+    NaturalPositionConstant -0.6//ここらへんはテキトーでいける
+    NaturalPositionConstant_Stage -0.9
+    VelocityConstant 0.1
+    VelocityConstant_Stage 0.1
     それ以外 1
 */
 
