@@ -121,8 +121,9 @@ public class MPControl : MonoBehaviour{
         //forsee ObjectPosition[i] and ObjectVelocity[i] using ObjectPosition[0] and ObjectVelocity[0], given InputPosition[i]
         //上で与えられたv[τ=0],x[τ=0](つまりv[t],x[t])とuからx[i],v[i]を順に予想していく
         for(int i=1;i<PredictionTime+1; i++) {
-            ObjectPosition_y[i]=ObjectPosition_y[i-1]+ObjectVelocity_y[i-1]*EvaluationDeltaTime; 
-            ObjectVelocity_y[i]=ObjectVelocity_y[i-1]-SpringConstent*(InputPosition_y[i-1] -ObjectPosition_y[i-1]-NaturalLength)*EvaluationDeltaTime;
+            float power=-SpringConstent*(InputPosition_y[i-1] -ObjectPosition_y[i-1]-NaturalLength);
+            ObjectPosition_y[i]=ObjectPosition_y[i-1]+ObjectVelocity_y[i-1]*EvaluationDeltaTime+power*EvaluationDeltaTime*EvaluationDeltaTime/2; 
+            ObjectVelocity_y[i]=ObjectVelocity_y[i-1]+power*EvaluationDeltaTime;
         }
 
         //calculate AdjointVector[i,0]and[i,1] :[i,0] for position, [i,1] for velocity
